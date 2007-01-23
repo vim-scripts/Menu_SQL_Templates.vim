@@ -1,0 +1,6 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=1774
+
+This is a simple script, which adds a new menu in GVIM. The menu SQL_Templates will have few sub menus. 
+
+The purpose of the this is to insert SQL code templates in current window/ file.
+So you don't have to refer manuals for those SQL commands which you don;t use often.
