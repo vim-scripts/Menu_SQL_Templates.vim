@@ -1,19 +1,30 @@
 "  Menu_SQL_Templates.vim 
 "  Last Change: Tue Jan 23 14:00 GMT
 "  Maintainer:  Sanjeev Sapre
-"  Version:     1.0 
+"  Version:     1.1 
+"
+"  History : 23-Jan-2007     1.0   Initial Version
+"            23-Feb-2007     1.1   Re-arranged menus, added few new menus   
+"
 
 " triggers
-:menu &SQL_Template.Create\ Trigger.Row\ Trigger iCREATE OR REPLACE TRIGGER  ????<Enter>       BEFORE DELETE OR INSERT or UPDATE /* OF <ColumnList> */<Enter>      ON <table_name><Enter>       REFERENCING OLD AS OLD NEW AS NEW<Enter>        FOR EACH ROW<Enter>DECLARE <Enter>   -- ...  <Enter>  /* WHEN (<condition>) */ <Enter>BEGIN <Enter>   -- ...  <Enter>END;
-:menu SQL_Template.Create\ Trigger.Statement\ Trigger iCREATE OR REPLACE TRIGGER ????  <Enter>     BEFORE DELETE OR INSERT OR UPDATE <Enter>       ON TABLE ????  <Enter>  REFERENCING OLD AS OLD NEW AS NEW <Enter>DECLARE <Enter>-- ...  <Enter>    BEGIN<Enter>-- ...  <Enter>END; 
+:menu &SQL_Template.Trigger.Row\ Trigger iCREATE OR REPLACE TRIGGER  ????<Enter>       BEFORE DELETE OR INSERT or UPDATE /* OF <ColumnList> */<Enter>      ON <table_name><Enter>       REFERENCING OLD AS OLD NEW AS NEW<Enter>        FOR EACH ROW<Enter>DECLARE <Enter>   -- ...  <Enter>  /* WHEN (<condition>) */ <Enter>BEGIN <Enter>   -- ...  <Enter>END;
+:menu SQL_Template.Trigger.Statement\ Trigger iCREATE OR REPLACE TRIGGER ????  <Enter>     BEFORE DELETE OR INSERT OR UPDATE <Enter>       ON TABLE ????  <Enter>  REFERENCING OLD AS OLD NEW AS NEW <Enter>DECLARE <Enter>-- ...  <Enter>    BEGIN<Enter>-- ...  <Enter>END; 
 
 
 " sequence
-:menu SQL_Template.Sequence iCREATE SEQUENCE ????  <Enter>    INCREMENT BY 1 <Enter>    START WITH 1 <Enter>    MAXVALUE 99999 MINVALUE 1 <Enter>    CYCLE NOCACHE NOORDER;
+:menu SQL_Template.Sequence.Create iCREATE SEQUENCE ????  <Enter>    INCREMENT BY 1 <Enter>    START WITH 1 <Enter>    MAXVALUE 99999 MINVALUE 1 <Enter>    CYCLE NOCACHE NOORDER;
+:menu SQL_Template.Sequence.Alter iALTER SEQUENCE <sequenceName>  INCREMENT BY <int> <Enter> MAXVALUE <int>  \| NOMAXVALUE <Enter> MINVALUE <int> \| NOMINVALUE <Enter> CYCLE \| NOCYCLE  <Enter> CACHE integer \| NOCACHE  <Enter> ORDER \| NOORDER ;<Enter> 
+
+" View
+menu SQL_Template.View.Create iCREATE OR REPLACE  [ [ NO ] FORCE ] VIEW  <viewname> AS subquery  ;
+
+" Synonym 
+menu SQL_Template.Synonym.Create iCREATE OR REPLACE  [ PUBLIC ] SYNONYM <schema.synonym_name> FOR [ schema.]object [@ dblink] ;
 
 
 " Index
-:menu SQL_Template.Index  iCREATE INDEX <index_name> ON <table_name>(<columns>) <Enter>    /*INITRANS 2 <Enter>    MAXTRANS 255 <Enter>    PCTFREE 10 <Enter>    TABLESPACE <tablespace_name> <Enter>    STORAGE( <Enter>    INITIAL 10240 <Enter>    NEXT 10240 <Enter>    PCTINCREASE 50 <Enter>    MINEXTENTS 1 <Enter>    MAXEXTENTS 121)  */;
+:menu SQL_Template.Index.Create  iCREATE INDEX <index_name> ON <table_name>(<columns>) <Enter>    /*INITRANS 2 <Enter>    MAXTRANS 255 <Enter>    PCTFREE 10 <Enter>    TABLESPACE <tablespace_name> <Enter>    STORAGE( <Enter>    INITIAL 10240 <Enter>    NEXT 10240 <Enter>    PCTINCREASE 50 <Enter>    MINEXTENTS 1 <Enter>    MAXEXTENTS 121)  */;
 
 
 " Constraints
@@ -34,10 +45,10 @@
 :menu SQL_Template.Session.Set\ NLS_DATE_FORMAT iALTER SESSION SET NLS_DATE_FORMAT = 'YYYY MM DD HH24:MI:SS';
 :menu SQL_Template.Session.SQL_TRACE iALTER SESSION SET SQL_TRACE = TRUE;
 
-" Misclaneous
-:menu SQL_Template.Locked\ Objects iSELECT owner, object_name FROM all_objects WHERE object_id IN (SELECT object_id FROM v$locked_object);
-:menu SQL_Template.User\ Dependencies  iSELECT RPAD(name,20,' ')\|\|RPAD(type,20,' ')\|\| <Enter>    RPAD(referenced_owner,20,' ')\|\| <Enter>    RPAD(referenced_name,20,' ')\|\|referenced_type <enter>    FROM user_dependencies <Enter>    ORDER BY type, name;
-:menu SQL_Template.Hierarchical\ Example i-- Emp table in scott<Enter>SELECT LPAD(' ',3*(LEVEL-1)) \|\| NAME hierarchy_list , <Enter>    START WITH empid  = :l_empid <Enter>    FROM emp <Enter>    CONNECT BY PRIOR mgr = empid ;
+" Miscellaneous
+:menu SQL_Template.Miscellaneous.Locked\ Objects iSELECT owner, object_name FROM all_objects WHERE object_id IN (SELECT object_id FROM v$locked_object);
+:menu SQL_Template.Miscellaneous.User\ Dependencies  iSELECT RPAD(name,20,' ')\|\|RPAD(type,20,' ')\|\| <Enter>    RPAD(referenced_owner,20,' ')\|\| <Enter>    RPAD(referenced_name,20,' ')\|\|referenced_type <enter>    FROM user_dependencies <Enter>    ORDER BY type, name;
+:menu SQL_Template.Miscellaneous.Hierarchical\ Example i-- Emp table in scott<Enter>SELECT LPAD(' ',3*(LEVEL-1)) \|\| NAME hierarchy_list , <Enter>    START WITH empid  = :l_empid <Enter>    FROM emp <Enter>    CONNECT BY PRIOR mgr = empid ;
 
 
 " Hints
